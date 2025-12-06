@@ -1,0 +1,20 @@
+@startuml
+title 3.2 Project Planning & Management — Agile Workflow
+
+start
+:Project Initiation & Charter;
+:Stakeholder Engagement & Requirements Gathering;
+:Backlog Creation & Prioritization;
+
+repeat
+:Sprint Planning (2 weeks);
+:Design & Build (Increment);
+:Integration & Testing;
+:Sprint Review & UAT;
+:Retrospective & Backlog Refinement;
+repeat while (Features remaining?) is (yes)
+
+:Deployment & Release;
+:Monitoring, Feedback, and Continuous Improvement;
+stop
+@enduml

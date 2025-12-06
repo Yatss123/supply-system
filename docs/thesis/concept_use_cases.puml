@@ -1,0 +1,23 @@
+@startuml
+title Conceptual Use Cases — PECIT Inventory Management
+left to right direction
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor "Supply Office Staff" as Staff
+actor "Decision-Makers (Dean/Heads)" as DecisionMakers
+
+rectangle "Inventory Management System" {
+  usecase "Process Automation" as UC_Automation
+  usecase "Real-Time Data Visibility" as UC_Visibility
+  usecase "Inventory Optimization" as UC_Optimization
+  usecase "User-Centered Design" as UC_UX
+}
+
+Staff --> UC_Automation
+Staff --> UC_Optimization
+Staff --> UC_UX
+DecisionMakers --> UC_Visibility
+
+@enduml

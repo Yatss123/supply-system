@@ -1,0 +1,21 @@
+gantt
+    title 3.2 Project Planning & Management — Timeline
+    dateFormat  YYYY-MM-DD
+    axisFormat  %b %d
+
+    section Initiation
+    Project Charter           :active, init, 2025-01-15, 7d
+
+    section Scoping
+    Requirements & Backlog    :req, after init, 10d
+
+    section Iterations
+    Sprint 1 (Plan/Build/Test):s1, after req, 10d
+    Sprint 2 (Plan/Build/Test):s2, after s1, 10d
+
+    section Validation
+    UAT & Sprint Review       :uat, after s2, 5d
+
+    section Release
+    Deployment                :deploy, after uat, 3d
+    Monitoring & Improvement  :mon, after deploy, 7d

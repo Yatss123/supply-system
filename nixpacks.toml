@@ -1,0 +1,22 @@
+[phases.setup]
+nixPkgs = ['nodejs', 'php81', 'php81Packages.composer']
+
+[phases.install]
+cmds = [
+    'composer install --no-dev --optimize-autoloader',
+    'npm ci --only=production'
+]
+
+[phases.build]
+cmds = [
+    'npm run build',
+    'php artisan config:cache',
+    'php artisan route:cache',
+    'php artisan view:cache'
+]
+
+[start]
+cmd = 'bash -c "source railway-migrate.sh && exec php artisan serve --host=0.0.0.0 --port=$PORT"'
+
+[variables]
+PHP_VERSION = '8.1'

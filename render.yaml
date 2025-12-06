@@ -1,0 +1,47 @@
+services:
+  - type: web
+    name: supply-system
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: starter
+    autoDeploy: true
+    healthCheckPath: /health.php
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        sync: false
+      - key: APP_URL
+        value: https://supply-system.onrender.com
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "3306"
+      - key: DB_DATABASE
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+
+  # Optional: Laravel queue worker (uncomment if you use queues)
+  # - type: worker
+  #   name: supply-system-queue
+  #   env: docker
+  #   dockerfilePath: Dockerfile
+  #   plan: starter
+  #   autoDeploy: true
+  #   envVars:
+  #     - key: QUEUE_CONNECTION
+  #       value: database
+  #   command: bash -lc "php artisan queue:work --sleep=3 --tries=3 --timeout=90"
+
+  # Optional: Laravel scheduler via Render Cron Job (recommended)
+  # cronJobs:
+  #   - name: supply-system-scheduler
+  #     schedule: "*/1 * * * *"
+  #     command: bash -lc "php /var/www/html/artisan schedule:run"

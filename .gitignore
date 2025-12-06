@@ -1,0 +1,46 @@
+/.phpunit.cache
+# Dependencies and build artifacts
+/node_modules
+/vendor
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+.env
+.env.backup
+.env.production
+.env.local
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode
+
+# Test files (keep local only)
+test_*.php
+test_*.html
+
+# Logs
+storage/logs/*.log
+
+# Cache
+bootstrap/cache/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+*.tmp
+*.temp

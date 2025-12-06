@@ -1,0 +1,117 @@
+@startuml
+' 3.3.1 System Workflow — PECIT Supply Office Inventory Management
+skinparam shadowing false
+skinparam dpi 120
+skinparam ArrowColor #333333
+skinparam ActivityBorderColor #333333
+skinparam ActivityFontColor #1a1a1a
+skinparam BackgroundColor #ffffff
+skinparam PartitionBorderColor #999999
+
+title 3.3.1 System Workflow — PECIT Supply Office Inventory Management
+
+start
+
+partition "Department Requester" {
+  :Identify need;
+  :Add items to Department Cart;
+  :Submit Supply/Loan Request;
+}
+
+partition System {
+  :Validate request (allocation, budget, stock, policy);
+  if (Valid?) then (yes)
+    :Create pending request;
+    :Notify Approver;
+  else (no)
+    :Return errors (over budget / missing stock / policy violation);
+    stop
+  endif
+}
+
+partition "Dean/Approver" {
+  :Review pending request;
+  if (Approve?) then (yes)
+    :Approve;
+  else (no)
+    :Reject with remarks;
+    end
+  endif
+}
+
+partition System {
+  :Reserve stock (soft hold);
+  :Log audit trail;
+  :Notify Supply Officer & Storekeeper;
+}
+
+partition "Supply Officer" {
+  :Schedule issuance/loan;
+  :Assign batch & pick list;
+}
+
+partition Storekeeper {
+  :Pick & verify items;
+  :Scan QR / confirm quantities;
+  if (Loan?) then (yes)
+    :Issue as loan;
+  else (no)
+    :Issue to department;
+  endif
+}
+
+partition System {
+  :Post transaction (decrement inventory, release reservation);
+  :Send notifications;
+  :Update dashboards & reports;
+}
+
+partition Department {
+  :Return borrowed items (if loan);
+}
+
+partition Storekeeper {
+  :Receive & inspect returned items;
+  if (Good?) then (yes)
+    :Restock to inventory;
+  else (no)
+    :Mark damaged / write-off;
+  endif
+}
+
+partition System {
+  :Close loan, update inventory & audit;
+  :Notify stakeholders;
+}
+
+partition "Supply Officer" {
+  :Create Restock Request (ROP or manual);
+}
+
+partition System {
+  :Generate Supplier PO;
+  :Notify Supplier;
+}
+
+partition Supplier {
+  :Fulfill order & deliver;
+}
+
+partition Storekeeper {
+  :Receive delivery;
+  :Quality check & verify;
+  if (Accept?) then (yes)
+    :Accept items;
+  else (no)
+    :Reject / return to supplier;
+  endif
+}
+
+partition System {
+  :Post receiving (increment inventory, set location & status);
+  :Update audit & reports;
+  :Scheduled jobs (stock updates, reminders);
+}
+
+stop
+@enduml
